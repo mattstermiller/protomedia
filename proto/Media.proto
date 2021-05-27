@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "Protomedia";
+
+package protomedia;
+
+enum MediaCommand {
+  PLAY_PAUSE = 0;
+  STOP = 1;
+  PREVIOUS = 2;
+  NEXT = 3;
+}
+
+message CommandRequest {
+  MediaCommand command = 1;
+}
+
+message CommandReply {}
+
+service Media {
+  rpc Exec (CommandRequest) returns (CommandReply);
+}
