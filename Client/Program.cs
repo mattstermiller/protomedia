@@ -20,7 +20,7 @@ namespace Client {
                 return;
             }
             var command = options.Command.Value;
-            string host = $"http://{options.Host}:5000";
+            var host = $"http://" + options.Host + (options.Host.Contains(":") ? "" : ":51234");
             Console.WriteLine($"Connecting to: {host}");
             using var channel = GrpcChannel.ForAddress(host);
             var client =  new Media.MediaClient(channel);

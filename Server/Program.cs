@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using System.Linq;
 
 namespace Server {
     public class Program {
@@ -7,10 +8,13 @@ namespace Server {
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder(string[] args) {
+            var port = args.FirstOrDefault() ?? "51234";
+            return Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder => {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>()
+                              .UseUrls("http://*:" + port);
                 });
+        }
     }
 }
